@@ -4,72 +4,6 @@ import spacy
 from spacy import displacy
 import numpy as np
 
-def load_drug_entities():
-    drugs = np.load("./app/static/data/drug_entities.npy")
-    drugs = [d.lower() for d in drugs if (len(d)>4)]
-    non_ents = ["solution"]
-    for ent in non_ents:
-        drugs.remove(ent)
-    drugs = list(set(drugs))
-    #drugs = add_single_words(drugs,l=4)
-    return drugs
-
-def load_dose_entities():
-    doses = np.load("./app/static/data/dose_entities.npy")
-    doses = [d.lower() for d in doses if len(d)>1]
-    return list(set(doses))
-
-def load_unit_entities():
-    ents = np.load("./app/static/data/unit_entities.npy")
-    ents = [ent.lower() for ent in ents]
-    return list(set(ents))
-
-def load_route_entities():
-    routes = np.load("./app/static/data/route_entities.npy")
-    routes = [d.lower() for d in routes if d.lower()!='as']
-    routes = set(routes)
-    return list(routes)
-def create_ent_df():
-    drugs = pd.DataFrame()
-    drugs["Name"] = load_drug_entities()
-    drugs["Entity"] = 'DRUG'
-    
-    doses = pd.DataFrame()
-    doses["Name"] = load_dose_entities()
-    doses["Entity"] = 'DOSE'
-    
-    routes = pd.DataFrame()
-    routes["Name"] = load_route_entities()
-    routes["Entity"] = 'ROUTE'
-    
-    unit = pd.DataFrame()
-    unit["Name"] = load_unit_entities()
-    unit["Entity"] = 'UNIT'
-    
-    other_ents = pd.DataFrame()
-    names = [
-            "a day",
-            "daily",
-            "hours",
-            "hr",
-            "every",
-            "as needed",
-            "delayed release",
-            "extended release",
-            "sustained release",
-            "refills",
-            "disp",
-             ]
-    numbers = [str(i) for i in range(100)]
-    numbers = numbers+["1-2","1-3","1-4","2-4"]
-    
-    other_ents["Name"] = names+numbers                    
-    other_ents["Entity"] = ["Frequency"]*6+["ROUTE"]*2+["DOSE"]*3+["CARDINAL"]*104
-    
-    df = pd.concat([drugs,unit,doses,routes,other_ents],axis=0)
-    
-    return df
-
 def in_text(x,text):
     if f"{x}" in text.lower():
         return True
@@ -81,7 +15,7 @@ def add_ent_matches(text,entities):
         for name,ent_type in entities:
             ent_matches = re.finditer(f"[^a-zA-Z0-9\.]{name}[^a-zA-Z0-9\.]" ,text.lower())
             for match in ent_matches:
-                matches.append([match.start()+1,match.end()-1,ent_type])
+                matches.append([match.start()+1,match.end()-1,ent_type,name])
         return matches
     
 def add_pattern_matches(text):
@@ -90,10 +24,10 @@ def add_pattern_matches(text):
     for pattern in patterns:
         pat_matches = re.finditer(pattern,text.lower())
         for match in pat_matches:
-            matches.append([match.start()+1,match.end()-1,'CARDINAL'])
+            matches.append([match.start()+1,match.end()-1,'CARDINAL',match])
     ord_matches = re.finditer(r"\n\d+\.",text.lower())
     for match in ord_matches:
-        matches.append([match.start()+1,match.end()-1,'ORDINAL'])
+        matches.append([match.start()+1,match.end()-1,'ORDINAL',match])
     return matches
 
 def drop_subsets(matches):
@@ -135,15 +69,35 @@ def show_ents(text,entities):
     return
 
 def get_entity_tags(text,ent_df):
-    ent_df["in_text"] = ent_df["Name"].apply(lambda x:in_text(x,text))
+    ent_df["in_text"] = ent_df["Name"].apply(lambda x:in_text(x,text.lower()))
     entities = ent_df[ent_df["in_text"]][["Name","Entity"]].values
-    ent_locs = get_ent_locs(text,entities)
+    ent_locs = get_ent_locs(text.lower(),entities)
     return ent_locs
 
 def clean_text(text):
-    text = re.sub("[:*]"," ",text)
+    bad_chars = [":","*"]
+    space_chars = ["[","]","(",")","\n"]
+    for c in bad_chars:
+        text = text.replace(c,"")
+    for c in space_chars:
+        text = text.replace(c," ")
     return text
 
+def get_drugs_and_conditions(ent_locs):
+    drug_list = list(set([i[3] for i in ent_locs if i[2] == "DRUG"]))
+    condition_list = list(set([i[3] for i in ent_locs if i[2] in ["CONDITION","SYMPTOM"]]))
+    return {"DRUGS":drug_list,"CONDITIONS":condition_list}
+
+def load_ent_df():
+    ent_df = pd.read_csv("./app/entities.csv")
+    bad_ents = ["solution","dose","lot","enema","-","in","can","pack","ring","bar","bags","cart","jar","pad","as","it","in"]
+    ent_df = ent_df[ent_df["Name"].isin(bad_ents)==0].copy()
+    return ent_df
+
 if __name__ == "__main__":
-    ent_df = create_ent_df()
-    print(ent_df.head())  
+    text = "DISCHARGE MEDICATIONS: \n1. aspirin 500 mg tablet twice (2) a day as needed for pain \n2. Oxacillin 2 mg as needed for pain \n"
+    text = clean_text(text)
+    ent_df = load_ent_df()
+    ent_locs = get_entity_tags(text,ent_df)
+    drugs_and_conditions = get_drugs_and_conditions(ent_locs)
+    print(drugs_and_conditions)

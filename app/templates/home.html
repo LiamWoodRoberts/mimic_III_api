@@ -1,0 +1,74 @@
+{% extends "nav_bar.html" %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2>Identifying Medical Conditions, Symptoms and Drugs</h1>
+                <p>
+                    Identify known drugs, conditions and symptoms within a block of text. Try a demo block or input your
+                    own
+                    text.
+                </p>
+                <h4>Sample Docs:</h4>
+                <li>
+                    This is an 81-year-old female with a history of emphysema (not on home
+                    O2), who presents with three days of shortness of breath thought by her primary care doctor to be a
+                    COPD flare. Two days prior to admission, she was started on a prednisone taper and one day prior to
+                    admission she required oxygen at home in order to maintain oxygen saturation greater than 90%. She
+                    has also been on levofloxacin and nebulizers, and was not getting better, and presented to the
+                    [**Hospital1 18**] Emergency Room. 
+                </li>
+                <p> </p>
+                <li>
+                    82 yo F with CAD, CHF, HTN, recent PE ([**10-17**]), who presents from
+                    rehab with hypoxia and SOB despite Abx treatment for PNA x 3 days. The patient was in rehab after
+                    being discharged from here for PE. She was scheduled to be discharged on [**12-6**]; on the day
+                    prior to discharge she deveoped fever, hypoxia, and SOB. 
+                </li>
+                <p></p>
+                <li>
+                    52 year old woman with a PMH significant for metastatic breast cancer with lung and brain mets
+                    admitted to the [**Hospital Unit Name 153**] for management of respiratory distress. The patient
+                    reports that she has had progressively worsening dyspnea on exertion and a cough productive of
+                    whitish sputum over the past several months, and that these symptoms prompted her CT chest in
+                    [**8-4**] that demonstrated her pulmonary metastasis. 
+                </li>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <hr>
+            <form action="/home" method="POST">
+                <div class="form-group">
+                    <label class="form-group-primary-text">Input:</label>
+                    <textarea class="form-control" type="text" name="text" rows="5"></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+    <p></p>
+    <div class="row">
+        <div class="col">
+            <h4> Drugs: </h4>
+            <p>
+                {% for drug in ents["DRUGS"] %}
+                {{ drug }},
+                {% endfor %}
+            </p>
+            <h4> Conditions and Symptoms:</h4>
+            <p>
+                {% for condition in ents["CONDITIONS"] %}
+                {{ condition }},
+                {% endfor %}
+            </p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
