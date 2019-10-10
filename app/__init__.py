@@ -1,7 +1,7 @@
 # Other Modules
 from flask import Flask,Blueprint
 from flask_restplus import Api
-from app.get_tags import create_ent_df
+from app.get_tags import load_ent_df
 
 app = Flask(__name__,
                 template_folder='templates',
@@ -14,6 +14,7 @@ api_name = 'Customer Loyalty Prediction Model'
 api = Api(blueprint,default=api_name,doc='/documentation')
 app.register_blueprint(blueprint)
 
-ent_df = create_ent_df()
+ent_df = load_ent_df()
 
 from app import api_views
+from app import app_views

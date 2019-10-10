@@ -1,0 +1,30 @@
+img.icon {
+    width: 50px;
+    height: auto;
+}
+
+img.contact {
+    width:100px;
+    height: auto;
+}
+
+table {
+    border-collapse: collapse;
+    margin: auto;
+    height: 100px;
+    width: 424px;
+}
+
+th{
+    padding:8px;
+    border-bottom: 2px solid;
+    text-align: center;
+}
+
+td {
+    padding: 4px;
+    border-bottom: 1px solid;
+    text-align: center;
+}
+
+/* tr:hover {background-color: royalblue;} */
