@@ -1,0 +1,42 @@
+{% extends "nav_bar.html" %}
+
+{% block title%} Annotation {% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2>Annotation</h2>
+            <p>
+                The next step in this project is developing "gold standard" NLP datasets which can be used to train more
+                sophisticated models. The project is currently being done through Doccanno in order to tag 10 different
+                entity types specific to the healthcare field.
+            </p>
+            <p>
+                The labels and format of the dataset are in the following form:
+            </p>
+
+            <img src="../static/images/doccano_sample.png" class="img-fluid img-thumbnail">
+            <p></p>
+            <p>
+                The demand for such data is high as models trained on non-medical data are useless when trying to
+                identify important medical entities. "Gold Standard" datasets such as this will allow the utility of
+                these models to reach the field of healthcare and make a real impact for professionals and patients.
+            </p>
+
+            <h2>How to Contribute:</h2>
+            <p>
+                The annotaton effort is ongoing and relies heavily on public contributions.
+            </p>
+            <p>
+                If you would like to help contribute to annotations you can reach me at my email:
+            </p>
+            <h4>liamwr17@gmail.com</h4>
+            <p>Specify the header as "Mimic III Annotation" and I will set you up with access to the dataset.</p>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

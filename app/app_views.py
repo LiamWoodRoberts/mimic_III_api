@@ -7,6 +7,10 @@ from flask import render_template,request,jsonify,url_for,redirect
 def test():
     return render_template("/contact.html")
 
+@app.route("/annotation")
+def contribute():
+    return render_template("/annotation.html")
+
 @app.route("/",methods=["GET","POST"])
 @app.route("/home",methods=["GET","POST"])
 def home():

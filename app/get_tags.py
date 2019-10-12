@@ -101,3 +101,4 @@ if __name__ == "__main__":
     ent_locs = get_entity_tags(text,ent_df)
     drugs_and_conditions = get_drugs_and_conditions(ent_locs)
     print(drugs_and_conditions)
+    
