@@ -1,6 +1,6 @@
 # Module Imports
 from app import api,ent_df
-from app.get_tags import get_entity_tags
+from app.get_tags import get_entity_tags,get_drugs_and_conditions
 
 # Package Imports
 from flask_restplus import Resource,reqparse
@@ -20,3 +20,12 @@ class tagger(Resource):
         text = str(args['text'])
         entity_tags = get_entity_tags(text,ent_df)
         return entity_tags
+
+@api.route("/drugs_and_conditions")
+class drugs_and_conditions(Resource):
+    def post(self):
+        args = parser.parse_args()
+        text = str(args["text"])
+        entity_tags = get_entity_tags(text,ent_df)
+        drugs_and_conditions = get_drugs_and_conditions(entity_tags)
+        return drugs_and_conditions

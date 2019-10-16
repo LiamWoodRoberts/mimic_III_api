@@ -1,7 +1,7 @@
 # Medical Entity Recognition App
 
 ### Summary:
-Deployed Web App for Identifying Medical Entities and Developing Gold Standard Medical Datasets for NLP. 
+Deployed Web App for Identifying Medical Entities and ongoing annottation for Gold Standard Medical Datasets for NLP.
 
 Available: https://medication-ner-app.herokuapp.com/home
 
@@ -23,9 +23,9 @@ Data for medical entities has been combined from:
 
 #### Base Folder:
 - **run.py:** contains executable for flask application
-- **Procfile:**Contains specifics for launching python application
+- **Procfile:** Contains specifics for launching python application
 - **config.py:** Contains information for flask configurations
-- **requirements.txt:**text file indicting dependencies for application environment.
+- **requirements.txt:** text file indicting dependencies for application environment.
 - **uwsgi.ini:** UWSGI configuration file
 
 > #### /app: contains flask python application
@@ -60,4 +60,8 @@ To run locally:
 5. Update flask executable with:
 
 - <code> export FLASK_APP=run.py </code>
+
+6. Launch Application with:
+
+- <code> flask run </code>
 
