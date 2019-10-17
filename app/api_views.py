@@ -1,6 +1,7 @@
 # Module Imports
-from app import api,ent_df
+from app import api,ent_df,nlp
 from app.get_tags import get_entity_tags,get_drugs_and_conditions
+from app.hybrid_model import clean_text,get_hybrid_tags
 
 # Package Imports
 from flask_restplus import Resource,reqparse
@@ -29,3 +30,12 @@ class drugs_and_conditions(Resource):
         entity_tags = get_entity_tags(text,ent_df)
         drugs_and_conditions = get_drugs_and_conditions(entity_tags)
         return drugs_and_conditions
+
+@api.route("/hybrid_tagger")
+class hybrid_tagger(Resource):
+    def post(self):
+        args = parser.parse_args()
+        text = str(args["text"])
+        tags = get_hybrid_tags(text,ent_df,nlp)
+        return tags
+        

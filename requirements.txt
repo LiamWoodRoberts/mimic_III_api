@@ -32,3 +32,4 @@ uWSGI==2.0.18
 virtualenv==16.0.0
 wasabi==0.2.2
 Werkzeug==0.16.0
+https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.2.0/en_core_web_sm-2.2.0.tar.gz#egg=en_core_web_sm
