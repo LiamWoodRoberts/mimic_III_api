@@ -34,6 +34,7 @@ Data for medical entities has been combined from:
 > - **app_views.py:** contains app routes for flask app
 > - **entities.csv:** contains dataset of known medical entities
 > - **get_tags.py:** python code for identifying medical entities in text
+> - **hybrid_tagger.py:** python code for creating tags using spacy pre-trained model and heuristic tagging.
 
 >> **/static:**
 >>> - **/css:** contains css styles for app
