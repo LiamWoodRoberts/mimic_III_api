@@ -11,7 +11,7 @@ app = Flask(__name__,
 app.config.from_object('config.Config')
 
 blueprint = Blueprint('api',__name__,url_prefix='/api')
-api_name = 'Customer Loyalty Prediction Model'
+api_name = 'Medical NER API'
 api = Api(blueprint,default=api_name,doc='/documentation')
 app.register_blueprint(blueprint)
 
