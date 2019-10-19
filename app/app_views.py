@@ -11,6 +11,10 @@ def test():
 def contribute():
     return render_template("/annotation.html")
 
+@app.route("/services")
+def services():
+    return render_template("/services.html")
+
 @app.route("/",methods=["GET","POST"])
 @app.route("/home",methods=["GET","POST"])
 def home():

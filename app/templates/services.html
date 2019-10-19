@@ -1,0 +1,38 @@
+{% extends "nav_bar.html" %}
+
+{% block title%}Services{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2>Current Models and Text Services</h2>
+            <hr>
+            <h4><a href="https://github.com/LiamWoodRoberts/mimic_III_api/blob/master/app/get_tags.py">1. Heuristic Rule-Based Entity Tagger</a></h4>
+            <p>Uses database and a rule based approach to identify medical and numeric entities.</p>
+            <h5>API Routes</h5>
+            <li><b>api/get_tags:</b>  Post request accepts a block of text and returns "Spacy Formatted" entities.</li>
+            <li><b>api/drugs_and_conditions:</b> Post request accepts a block of text and returns a list of unique drugs and medical conditions contained in the text.</li>
+            <hr>
+            <h4><a href="">2. Hybrid Entity Tagger</a></h4>
+            <p>Uses a pre-trained Spacy NER model for numeric/time based entities and a rule based approach for specific
+                medical entities.</p>
+            <h5>API Routes</h5>
+            <li><b>api/hybrid_tagger:</b> Post request accepts a block of text and returns "Spacy Formatted" entities.
+            </li>
+            <hr>
+            <h4><a href="">3. Spacy NER Tagger:</a></h4>
+            <p>Uses a <a href="https://spacy.io/models#architecture">Spacy NER Model</a> trained on manual annotations of Mimic III discharge summaries.</p>
+            <h5>API Routes</h5>
+            <p>In Progress</p>
+            <hr>
+            <h3>Further Documentation and Resources:</h3>
+            <li><a href ="https://github.com/LiamWoodRoberts/mimic_III_DS_eda/blob/master/4.%20api_testing%20(ongoing).ipynb">Notebook to test API calls:</a></li>
+            <li><a href="/api/documentation">Swagger API Documentation: </a></li>
+            <hr>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
