@@ -1,0 +1,57 @@
+{% extends "nav_bar.html" %}
+
+{% block title%} Annotation {% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col">
+        <div class="jumbotron">
+                <h1 class="display-3">Information Suite Demo</h1>
+                <hr class="my-4">
+                <h1 class="display-5">Medical Discharge Summaries</h1>
+        </div>
+        
+    </div>
+</div>
+<div class="row">
+    <div class="col-3">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Samples:</h4>
+                <div class="card-body">
+                        <form action="/demo" method="POST">
+                            <div class="list-group">
+                                <button name="index" type="submit" class="list-group-item list-group-item-action" value="0">1</button>
+                                <button name="index" type="submit" class="list-group-item list-group-item-action" value="1">2</button>
+                                <button name="index" type="submit" class="list-group-item list-group-item-action" value="2">3</button>
+                                <button name="index" type="submit" class="list-group-item list-group-item-action" value="3">4</button>
+                                <button name="index" type="submit" class="list-group-item list-group-item-action" value="4">5</button>
+                                <button name="index" type="submit" class="list-group-item list-group-item-action" value="5">6</button>
+
+                            </div>
+                        </form>
+                </div>
+            </div>
+        </div>
+
+       
+    </div>
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title"> Text: </h4>
+
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    {{sample}}
+                </p>
+                <form action="/medical_suite" method="POST">
+                    <button name="index" type="submit" class="btn btn-primary btn-lg btn-block" value={{index}}>Extract Info</button>
+                </form>
+            </div>
+        </div>
+
+
+        {% endblock %}

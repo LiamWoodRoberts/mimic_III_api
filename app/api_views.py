@@ -1,7 +1,7 @@
 # Module Imports
 from app import api, ent_df, nlp
-from app.get_tags import get_entity_tags, get_drugs_and_conditions
-from app.hybrid_model import clean_text, get_hybrid_tags
+from app.get_tags import get_entity_tags, get_drugs_and_conditions,clean_text
+from app.hybrid_model import get_hybrid_tags
 
 # Package Imports
 from flask_restplus import Resource, reqparse

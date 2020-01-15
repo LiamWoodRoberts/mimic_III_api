@@ -31,8 +31,3 @@ def get_hybrid_tags(text,ent_df,nlp):
     ents = sorted(cust_ents+doc_ents,key=lambda x: (x[0], x[1]))
     ents = drop_subsets(ents)
     return ents
-
-def clean_text(text):
-    '''Removes line breaks from text for better performance when tagging'''
-    text = text.replace("\n"," ")
-    return text
